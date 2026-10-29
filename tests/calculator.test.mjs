@@ -1,0 +1,7 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { calculate, defaults } from "../src/calculator.js";
+test("calculates the default workflow consistently", () => { const result = calculate(defaults); assert.equal(result.valid, true); assert.equal(result.manualCost, 54400); assert.equal(result.aiLaborCost, 35360); assert.equal(result.tokenCost, 13.44); assert.equal(result.totalAiCost, 35873.44); assert.equal(result.netSavings, 18526.56); assert.ok(result.breakEvenTasks > 0); });
+test("supports zero usage without division errors", () => { const result = calculate(Object.fromEntries(Object.keys(defaults).map((key) => [key, 0]))); assert.equal(result.valid, true); assert.equal(result.manualCost, 0); assert.equal(result.totalAiCost, 0); assert.equal(result.netSavings, 0); assert.equal(result.percentageSavings, 0); assert.equal(result.breakEvenTasks, null); });
+test("reports negative savings and no break-even when AI labor is higher", () => { const result = calculate({ ...defaults, tasks: 10, manualHours: 1, aiHours: 1.2, reviewHours: 0.5, reworkHours: 0.2, toolingCost: 0 }); assert.equal(result.valid, true); assert.ok(result.netSavings < 0); assert.equal(result.breakEvenTasks, null); });
+test("rejects invalid inputs", () => { const result = calculate({ ...defaults, outputPrice: -1, tasks: Number.NaN }); assert.equal(result.valid, false); assert.equal(result.errors.length, 2); });

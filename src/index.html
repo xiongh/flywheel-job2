@@ -1,14 +1,36 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flywheel Motion Job #2</title>
-  </head>
-  <body>
-    <main>
-      <h1>Ready for Flywheel Motion Job #2</h1>
-      <p>This is only a local build-and-preview smoke test. No assessment implementation has been started.</p>
-    </main>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A transparent AI coding workflow cost and break-even calculator for engineering leaders.">
+  <title>AI Coding Agent Cost Calculator | Independent prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to calculator</a>
+  <header class="site-header"><div class="brand"><span class="brand-mark">/</span> ctaio.dev <span>· independent assessment prototype</span></div><p>Technology leadership · practical AI ROI</p></header>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">Decision support for engineering leaders</p><h1 id="page-title">AI Coding Agent:<br><em>True Cost &amp; Break-Even</em></h1><p class="lede">Model the whole workflow—not just generation speed. Put review, rework, usage, and tooling beside the manual baseline before you make an investment case.</p></div>
+      <aside class="hero-note"><span class="note-label">Use this for</span><strong>Planning conversations,<br>not vendor promises.</strong><span>All pricing is editable. Nothing here is live pricing or a benchmark claim.</span></aside>
+    </section>
+    <section id="calculator" class="calculator" aria-labelledby="calculator-title">
+      <div class="section-heading"><div><p class="eyebrow">Interactive model</p><h2 id="calculator-title">Run your workflow</h2></div><div class="scenario-control"><label for="scenario">Starting scenario</label><select id="scenario" name="scenario"><option value="default">Balanced team</option><option value="optimistic">High-volume, low-friction</option><option value="costly">Review-heavy: AI costs more</option></select></div></div>
+      <div class="calculator-grid">
+        <form id="cost-form" novalidate aria-describedby="form-status"><p id="form-status" class="form-status" aria-live="polite"></p>
+          <fieldset><legend>Work profile</legend><div class="input-grid"><label>Monthly tasks<input id="tasks" name="tasks" type="number" min="0" step="1" inputmode="numeric"></label><label>Manual hours per task<input id="manualHours" name="manualHours" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Engineer hourly rate <span class="unit">USD</span><input id="hourlyRate" name="hourlyRate" type="number" min="0" step="1" inputmode="decimal"></label></div></fieldset>
+          <fieldset><legend>AI-assisted delivery per task</legend><div class="input-grid"><label>AI-assisted hours<input id="aiHours" name="aiHours" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Review hours<input id="reviewHours" name="reviewHours" type="number" min="0" step="0.1" inputmode="decimal"></label><label>Rework hours<input id="reworkHours" name="reworkHours" type="number" min="0" step="0.1" inputmode="decimal"></label></div></fieldset>
+          <fieldset><legend>Model usage &amp; tooling</legend><div class="input-grid"><label>Input tokens / task <span class="unit">tokens</span><input id="inputTokens" name="inputTokens" type="number" min="0" step="100" inputmode="numeric"></label><label>Output tokens / task <span class="unit">tokens</span><input id="outputTokens" name="outputTokens" type="number" min="0" step="100" inputmode="numeric"></label><label>Input price <span class="unit">USD / 1M tokens</span><input id="inputPrice" name="inputPrice" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Output price <span class="unit">USD / 1M tokens</span><input id="outputPrice" name="outputPrice" type="number" min="0" step="0.01" inputmode="decimal"></label><label>Other monthly tooling <span class="unit">USD</span><input id="toolingCost" name="toolingCost" type="number" min="0" step="1" inputmode="decimal"></label></div></fieldset>
+          <div class="form-actions"><button class="secondary" id="reset" type="button">Reset defaults</button><span>Changes calculate as you type.</span></div>
+        </form>
+        <section class="results" aria-labelledby="results-title" aria-live="polite"><div class="result-topline"><p class="eyebrow">Monthly comparison</p><span id="outcome-badge" class="badge">—</span></div><h2 id="results-title" class="sr-only">Results</h2><div class="primary-result"><span>Net monthly impact</span><strong id="net-savings">—</strong><small id="percent-savings">—</small></div><dl class="metrics"><div><dt>Manual workflow cost</dt><dd id="manual-cost">—</dd></div><div><dt>AI-assisted labor</dt><dd id="ai-labor-cost">—</dd></div><div><dt>Model token cost</dt><dd id="token-cost">—</dd></div><div><dt>Total AI workflow cost</dt><dd id="ai-total-cost">—</dd></div><div class="break-even"><dt>Break-even volume</dt><dd id="break-even">—</dd></div></dl><p id="result-explainer" class="result-explainer">Enter your assumptions to compare workflows.</p><button id="copy-summary" class="copy-button" type="button">Copy decision summary</button><p id="copy-status" class="copy-status" aria-live="polite"></p></section>
+      </div>
+    </section>
+    <section class="transparency" aria-labelledby="transparency-title"><div><p class="eyebrow">Transparent by design</p><h2 id="transparency-title">The model behind the number</h2><p>Token prices are user-entered planning assumptions, not live quotes. Inputs and outputs are priced separately because their costs can differ substantially.</p></div><div class="formula-card"><p><strong>Manual cost</strong> = tasks × manual hours/task × hourly rate</p><p><strong>AI labor cost</strong> = tasks × (AI hours + review hours + rework hours) × hourly rate</p><p><strong>Token cost</strong> = tasks × ((input tokens ÷ 1,000,000 × input price) + (output tokens ÷ 1,000,000 × output price))</p><p><strong>AI workflow cost</strong> = AI labor cost + token cost + other monthly tooling</p><p><strong>Net savings</strong> = manual cost − AI workflow cost</p></div></section>
+    <section class="methodology" aria-labelledby="methodology-title"><p class="eyebrow">Methodology &amp; limits</p><h2 id="methodology-title">Fast generation is not the same as lower delivery cost.</h2><div class="method-grid"><p>This is a deterministic monthly cost model. It does not estimate quality, reliability, security outcomes, adoption time, context switching, or opportunity cost. Use it to test the sensitivity of your own operating assumptions.</p><p>Review and rework are explicit because generated code can shift effort rather than remove it. If validation, integration, or correction grows faster than authoring time falls, an AI workflow can cost more—as the review-heavy scenario demonstrates.</p></div></section>
+  </main>
+  <footer>Independent assessment prototype for ctaio.dev · No tracking, API keys, or external services.</footer>
+  <script type="module" src="app.js"></script>
+</body>
 </html>
